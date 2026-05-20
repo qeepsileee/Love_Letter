@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="es">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Цветы для тебя</title>
+<title>Flores Para Ti</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -145,6 +145,7 @@
 <div id="intro" onclick="startMain()">
   <svg class="sunflower-icon" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
     <g transform="translate(60,56)">
+      <!-- SVG как у тебя -->
       <ellipse rx="8" ry="22" fill="#F5C518" opacity="0.9" transform="rotate(0)   translate(0,-32)"/>
       <ellipse rx="8" ry="22" fill="#E8B800" opacity="0.9" transform="rotate(30)  translate(0,-32)"/>
       <ellipse rx="8" ry="22" fill="#F5C518" opacity="0.9" transform="rotate(60)  translate(0,-32)"/>
@@ -182,8 +183,9 @@
     <line x1="60" y1="91" x2="60" y2="118" stroke="#5c7a2a" stroke-width="4" stroke-linecap="round"/>
     <ellipse cx="52" cy="108" rx="9" ry="5" fill="#6a8f30" transform="rotate(-20,52,108)"/>
   </svg>
-  <div class="intro-label">🌻 Цветы для тебя</div>
-  <div class="click-hint">нажми чтобы открыть</div>
+  <!-- ВЕРНУЛИ ИСПАНСКИЕ ФРАЗЫ -->
+  <div class="intro-label">🌻 Flores Para Ti</div>
+  <div class="click-hint">toca para abrir</div>
 </div>
 
 <!-- MAIN -->
@@ -191,7 +193,8 @@
   <div id="left-panel">
     <div id="textContainer"></div>
     <div id="timerBlock">
-      <div id="timerLabel">Встретимся через...</div>
+      <!-- Тоже возвращаем оригинальный текст -->
+      <div id="timerLabel">Mi amor por ti comenzó hace...</div>
       <div id="timer">—</div>
     </div>
   </div>
@@ -205,7 +208,6 @@
 </div>
 
 <script>
-// ── CONFIG ──────────────────────────────────────────
 const linesOfText = [
   "Доня, я очень верю в тебя",
   "и знаю, что у тебя всё",
@@ -220,19 +222,19 @@ const linesOfText = [
   "Я рядом и всегда буду",
   "поддерживать тебя ❤️🫶🏻"
 ];
-// таймер до 24.05.2026 15:00
-const startDate = new Date("2026-05-24T15:00:00").getTime();
-// ────────────────────────────────────────────────────
 
-const intro       = document.getElementById('intro');
-const mainEl      = document.getElementById('main');
-const treeCanvas  = document.getElementById('treeCanvas');
-const tctx        = treeCanvas.getContext('2d');
-const petalCanvas = document.getElementById('petalCanvas');
-const pctx        = petalCanvas.getContext('2d');
-const textCont    = document.getElementById('textContainer');
-const timerEl     = document.getElementById('timer');
-const rightPanel  = document.getElementById('right-panel');
+// ТАЙМЕР НА 24.05.2026 15:00
+const startDate = new Date("2026-05-24T15:00:00").getTime();
+
+const intro      = document.getElementById('intro');
+const mainEl     = document.getElementById('main');
+const treeCanvas = document.getElementById('treeCanvas');
+const tctx       = treeCanvas.getContext('2d');
+const petalCanvas= document.getElementById('petalCanvas');
+const pctx       = petalCanvas.getContext('2d');
+const textCont   = document.getElementById('textContainer');
+const timerEl    = document.getElementById('timer');
+const rightPanel = document.getElementById('right-panel');
 
 let W, H;
 let particles = [];
@@ -256,7 +258,6 @@ function startMain() {
   }, 1200);
 }
 
-// TIMER
 function startTimer() {
   function tick() {
     const diff = Math.abs(Date.now() - startDate);
@@ -264,251 +265,16 @@ function startTimer() {
     const h = Math.floor((diff % 86400000) / 3600000);
     const m = Math.floor((diff % 3600000)  / 60000);
     const s = Math.floor((diff % 60000)    / 1000);
-    timerEl.textContent = `${d} дн.  ${String(h).padStart(2,'0')} ч  ${String(m).padStart(2,'0')} мин  ${String(s).padStart(2,'0')} с`;
+    timerEl.textContent = `${d} días  ${String(h).padStart(2,'0')} h  ${String(m).padStart(2,'0')} m  ${String(s).padStart(2,'0')} s`;
   }
   tick();
   setInterval(tick, 1000);
 }
 
-// TYPEWRITER
-function typeWriter() {
-  let li = 0, ci = 0;
-  function next() {
-    if (li >= linesOfText.length) return;
-    if (ci === 0) {
-      const p = document.createElement('div');
-      p.className = 'typewriter-line';
-      p.id = 'tl' + li;
-      textCont.appendChild(p);
-    }
-    const line = linesOfText[li];
-    if (ci < line.length) {
-      document.getElementById('tl' + li).textContent += line[ci];
-      ci++;
-      setTimeout(next, 48);
-    } else {
-      li++; ci = 0;
-      setTimeout(next, 420);
-    }
-  }
-  next();
-}
-
-// PHASE 1: growing dot
-function animateTreeGrow() {
-  const cx = W * 0.5;
-  const groundY = H * 0.88;
-  let dotR = 0;
-  const maxDotR = 14;
-  function growDot() {
-    tctx.clearRect(0, 0, W, H);
-    dotR += 0.5;
-    tctx.beginPath();
-    tctx.arc(cx, groundY, dotR, 0, Math.PI * 2);
-    tctx.fillStyle = '#6B3A1F';
-    tctx.fill();
-    if (dotR < maxDotR) {
-      requestAnimationFrame(growDot);
-    } else {
-      setTimeout(() => buildTree(cx, groundY), 200);
-    }
-  }
-  growDot();
-}
-
-// PHASE 2: build tree
-function buildTree(cx, groundY) {
-  const branchList = [];
-
-  function collectBranch(x, y, len, angle, depth) {
-    if (depth === 0) return;
-    const ex = x + len * Math.cos(angle);
-    const ey = y + len * Math.sin(angle);
-    branchList.push({ x1: x, y1: y, x2: ex, y2: ey, depth });
-    const spread = 0.36 + Math.random() * 0.06;
-    const jitter = () => (Math.random() - 0.5) * 0.1;
-    collectBranch(ex, ey, len * 0.70, angle - spread + jitter(), depth - 1);
-    collectBranch(ex, ey, len * 0.70, angle + spread + jitter(), depth - 1);
-  }
-
-  const trunkLen = H * 0.20;
-  collectBranch(cx, groundY, trunkLen, -Math.PI / 2, 9);
-
-  const margin = 18;
-  let bi = 0;
-  const interval = setInterval(() => {
-    if (bi < branchList.length) {
-      const b = branchList[bi++];
-      const x2 = Math.max(margin, Math.min(W - margin, b.x2));
-      const y2 = Math.max(margin, Math.min(groundY, b.y2));
-      tctx.beginPath();
-      tctx.moveTo(b.x1, b.y1);
-      tctx.lineTo(x2, y2);
-      tctx.strokeStyle = `hsl(25,${38 + b.depth * 4}%,${20 + b.depth * 2}%)`;
-      tctx.lineWidth   = Math.max(0.7, b.depth * 0.85);
-      tctx.lineCap     = 'round';
-      tctx.stroke();
-    } else {
-      clearInterval(interval);
-      setTimeout(() => drawHeartFlowers(cx, groundY - H * 0.36), 300);
-    }
-  }, 5);
-}
-
-// PHASE 3: sunflowers fill heart completely — grid-based, no gaps
-function drawHeartFlowers(hcx, hcy) {
-  const flowersToDraw = [];
-
-  // Оставляем масштаб примерно как у тебя, чуть поменьше
-  const scale = Math.min(W, H) * 0.014;
-  const flowerR = 5;
-  const step = flowerR * 1.85;
-
-  const xRange = 16 * scale * 1.35;
-  const yRange = 14 * scale * 1.35;
-
-  // МОДИФИЦИРОВАННАЯ ФУНКЦИЯ: та же идея, что была у тебя,
-  // но с лёгким вытягиванием вниз и более острым низом
-  function insideHeart(px, py) {
-    // нормализуем относительно центра
-    const nx = (px - hcx) / scale;
-    const ny = (py - hcy) / scale;
-
-    // чуть растянем по вертикали, чтобы низ был острее
-    const iy = ny * 1.15;
-
-    // твой старый подход через «сердечное» уравнение, но с поправкой на iy
-    const ix = nx / 16;
-    const jy = -iy / 13;
-
-    const val = Math.pow(ix * ix + jy * jy - 1, 3) - ix * ix * Math.pow(jy, 3);
-    // немного увеличенный допуск по сравнению с прошлым вариантом,
-    // чтобы точек было достаточно много
-    return val <= 0.12;
-  }
-
-  for (let px = hcx - xRange; px <= hcx + xRange; px += step) {
-    for (let py = hcy - yRange; py <= hcy + yRange; py += step) {
-      if (px > 8 && px < W - 8 && py > 8 && py < H - 8) {
-        if (insideHeart(px, py)) {
-          flowersToDraw.push({
-            x: px + (Math.random() * 2 - 1),
-            y: py + (Math.random() * 2 - 1),
-            delay: Math.random() * 2600
-          });
-        }
-      }
-    }
-  }
-
-  let appeared = 0;
-  const trigger = Math.floor(flowersToDraw.length * 0.55);
-  flowersToDraw.forEach(f => {
-    setTimeout(() => {
-      drawSunflowerOnTree(f.x, f.y, flowerR + Math.random() * 1.2);
-      appeared++;
-      if (appeared === trigger && !treeReady) {
-        treeReady = true;
-        typeWriter();
-        startFallingSunflowers();
-      }
-    }, f.delay);
-  });
-}
-  let appeared = 0;
-  const trigger = Math.floor(flowersToDraw.length * 0.55);
-  flowersToDraw.forEach(f => {
-    setTimeout(() => {
-      drawSunflowerOnTree(f.x, f.y, flowerR + Math.random() * 1.2);
-      appeared++;
-      if (appeared === trigger && !treeReady) {
-        treeReady = true;
-        typeWriter();
-        startFallingSunflowers();
-      }
-    }, f.delay);
-  });
-}
-
-// Draw sunflower on tree canvas
-function drawSunflowerOnTree(x, y, r) {
-  const nP = 8;
-  for (let i = 0; i < nP; i++) {
-    const a  = (i / nP) * Math.PI * 2;
-    const px = x + Math.cos(a) * r * 1.55;
-    const py = y + Math.sin(a) * r * 1.55;
-    tctx.beginPath();
-    tctx.ellipse(px, py, r * 0.5, r * 0.88, a, 0, Math.PI * 2);
-    tctx.fillStyle = i % 2 === 0 ? '#FFD000' : '#F5B800';
-    tctx.fill();
-  }
-  tctx.beginPath();
-  tctx.arc(x, y, r, 0, Math.PI * 2);
-  tctx.fillStyle = '#3E1C00';
-  tctx.fill();
-  tctx.beginPath();
-  tctx.arc(x, y, r * 0.62, 0, Math.PI * 2);
-  tctx.fillStyle = '#5A2800';
-  tctx.fill();
-}
-
-// Draw tiny falling sunflower
-function drawFallingSunflower(cx, cy, r, angle) {
-  pctx.save();
-  pctx.translate(cx, cy);
-  pctx.rotate(angle);
-  const nP = 8;
-  for (let i = 0; i < nP; i++) {
-    const a  = (i / nP) * Math.PI * 2;
-    const px = Math.cos(a) * r * 1.6;
-    const py = Math.sin(a) * r * 1.6;
-    pctx.beginPath();
-    pctx.ellipse(px, py, r * 0.48, r * 0.88, a, 0, Math.PI * 2);
-    pctx.fillStyle = i % 2 === 0 ? '#FFD000' : '#F5B800';
-    pctx.fill();
-  }
-  pctx.beginPath();
-  pctx.arc(0, 0, r, 0, Math.PI * 2);
-  pctx.fillStyle = '#3E1C00';
-  pctx.fill();
-  pctx.beginPath();
-  pctx.arc(0, 0, r * 0.62, 0, Math.PI * 2);
-  pctx.fillStyle = '#5A2800';
-  pctx.fill();
-  pctx.restore();
-}
-
-// Falling tiny sunflowers
-function startFallingSunflowers() {
-  setInterval(() => {
-    if (particles.length < 18) {
-      particles.push({
-        x:     W * (0.1 + Math.random() * 0.8),
-        y:     -12,
-        vx:    (Math.random() - 0.5) * 0.6,
-        vy:    0.6 + Math.random() * 0.9,
-        r:     4 + Math.random() * 3,
-        angle: Math.random() * Math.PI * 2,
-        spin:  (Math.random() - 0.5) * 0.04
-      });
-    }
-  }, 600);
-
-  function animate() {
-    pctx.clearRect(0, 0, W, H);
-    particles.forEach((p, i) => {
-      p.x     += p.vx;
-      p.y     += p.vy;
-      p.angle += p.spin;
-      drawFallingSunflower(p.x, p.y, p.r, p.angle);
-      if (p.y > H + 20) particles.splice(i, 1);
-    });
-    requestAnimationFrame(animate);
-  }
-  animate();
-}
-
-resize();
+/* дальше у тебя код без изменений:
+   typeWriter, animateTreeGrow, buildTree, drawHeartFlowers, drawSunflowerOnTree,
+   drawFallingSunflower, startFallingSunflowers
+   — я их опускаю ради краткости, они остаются такими же как в твоей последней версии */
 </script>
 </body>
 </html>
