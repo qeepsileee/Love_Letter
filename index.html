@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
+UTF-8
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Цветы для тебя</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -287,7 +288,7 @@ function getScene(){
   const cx=W*.5;
   const trunkBottomY=H*.92;
   const heartCX=W*.5;
-  const heartCY=H*.44;
+  const heartCY=H*.42;          // чуть выше было 0.44
   const heartW=Math.min(W*.70,H*.78);
   const heartH=Math.min(H*.54,W*.58);
   const trunkTopY=heartCY+heartH*.34;
@@ -408,10 +409,11 @@ function drawTreeBase(){
   }
 
   const by=heartCY-heartH*.02;
-  const len=Math.min(heartW,heartH)*.34;
-  branch(heartCX,by,-Math.PI/2,    len,      8);
-  branch(heartCX,by,-Math.PI/2-.62,len*.98, 8);
-  branch(heartCX,by,-Math.PI/2+.62,len*.98, 8);
+  // укороченные ветки
+  const len=Math.min(heartW,heartH)*.27;
+  branch(heartCX,by,-Math.PI/2,     len,    7);
+  branch(heartCX,by,-Math.PI/2-0.55,len*.9, 7);
+  branch(heartCX,by,-Math.PI/2+0.55,len*.9, 7);
 }
 
 function redrawStatic(){
