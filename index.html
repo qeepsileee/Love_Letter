@@ -4,164 +4,151 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Цветы для тебя</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{
-  background:#fdf6e3;
-  font-family:'Lato',sans-serif;
-  height:100vh;
-  overflow:hidden;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-}
-#intro{
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  cursor:pointer;
-  user-select:none;
-  transition:opacity 1.2s ease;
-}
-.sunflower-icon{
-  width:120px;height:120px;
-  margin-bottom:20px;
-  filter:drop-shadow(0 4px 12px rgba(180,120,0,.2));
-  transition:transform .4s ease;
-}
-.sunflower-icon:hover{transform:scale(1.08) rotate(5deg)}
-.intro-label{
-  font-family:'Cormorant Garamond',serif;
-  font-size:26px;
-  color:#5c3d1e;
-  letter-spacing:2px;
-  border-bottom:1.5px solid #c8973f;
-  padding-bottom:6px;
-  opacity:0;
-  animation:fadeUp 1s .4s forwards;
-}
-.click-hint{
-  margin-top:14px;
-  font-size:12px;
-  color:#b08040;
-  letter-spacing:3px;
-  text-transform:uppercase;
-  opacity:0;
-  animation:fadeUp 1s .9s forwards;
-}
-@keyframes fadeUp{
-  from{opacity:0;transform:translateY(10px)}
-  to{opacity:1;transform:translateY(0)}
-}
-#main{
-  position:absolute;
-  inset:0;
-  opacity:0;
-  pointer-events:none;
-  display:flex;
-  align-items:stretch;
-}
-#main.visible{
-  opacity:1;
-  pointer-events:all;
-  transition:opacity 1.5s ease;
-}
-#left-panel{
-  width:42%;
-  display:flex;
-  flex-direction:column;
-  justify-content:center;
-  padding:60px 40px 60px 70px;
-}
-#textContainer{
-  font-family:'Cormorant Garamond',serif;
-  font-size:21px;
-  line-height:1.85;
-  color:#3d2b1a;
-  margin-bottom:50px;
-  min-height:360px;
-}
-.typewriter-line{min-height:32px}
-#timerBlock{
-  border-top:1px solid #d4a84b;
-  padding-top:22px;
-}
-#timerLabel{
-  font-size:12px;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  color:#9a6e3a;
-  margin-bottom:10px;
-}
-#timer{
-  font-family:'Cormorant Garamond',serif;
-  font-size:22px;
-  font-weight:600;
-  color:#5c3d1e;
-}
-.divider{
-  width:1px;
-  background:linear-gradient(to bottom,transparent,#d4a84b 30%,#d4a84b 70%,transparent);
-  align-self:stretch;
-  margin:40px 0;
-}
-#right-panel{
-  flex:1;
-  position:relative;
-  overflow:hidden;
-  min-width:0;
-}
-#treeCanvas,#petalCanvas{
-  position:absolute;
-  top:0;left:0;
-  width:100%;height:100%;
-  display:block;
-}
-#petalCanvas{pointer-events:none}
-.corner-deco{
-  position:absolute;
-  top:30px;right:30px;
-  width:60px;height:60px;
-  border-top:1.5px solid #d4a84b;
-  border-right:1.5px solid #d4a84b;
-  opacity:.5;
-  pointer-events:none;
-}
-.corner-deco-bl{
-  position:absolute;
-  bottom:30px;left:30px;
-  width:40px;height:40px;
-  border-bottom:1px solid #d4a84b;
-  border-left:1px solid #d4a84b;
-  opacity:.4;
-  pointer-events:none;
-}
-@media(max-width:900px){
-  body{overflow:auto;height:auto;min-height:100vh}
-  #main{flex-direction:column;overflow-y:auto}
-  #left-panel{width:100%;padding:40px 24px 24px}
-  #textContainer{font-size:19px;min-height:280px;margin-bottom:30px}
-  .divider{
-    width:auto;height:1px;
-    margin:0 24px;
-    background:linear-gradient(to right,transparent,#d4a84b 30%,#d4a84b 70%,transparent);
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #fdf6e3;
+    font-family: 'Lato', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  #right-panel{min-height:62vh}
-}
+  #intro {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+    transition: opacity 1.2s ease;
+  }
+  .sunflower-icon {
+    width: 120px;
+    height: 120px;
+    margin-bottom: 20px;
+    filter: drop-shadow(0 4px 12px rgba(180,120,0,0.2));
+    transition: transform 0.4s ease;
+  }
+  .sunflower-icon:hover { transform: scale(1.08) rotate(5deg); }
+  .intro-label {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    color: #5c3d1e;
+    letter-spacing: 2px;
+    border-bottom: 1.5px solid #c8973f;
+    padding-bottom: 6px;
+    opacity: 0;
+    animation: fadeUp 1s 0.4s forwards;
+  }
+  .click-hint {
+    margin-top: 14px;
+    font-size: 12px;
+    color: #b08040;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    opacity: 0;
+    animation: fadeUp 1s 0.9s forwards;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  #main {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    pointer-events: none;
+    display: flex;
+    align-items: stretch;
+  }
+  #main.visible {
+    opacity: 1;
+    pointer-events: all;
+    transition: opacity 1.5s ease;
+  }
+  #left-panel {
+    width: 42%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 60px 40px 60px 70px;
+  }
+  #textContainer {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 21px;
+    line-height: 1.85;
+    color: #3d2b1a;
+    margin-bottom: 50px;
+  }
+  .typewriter-line { min-height: 32px; }
+  #timerBlock {
+    border-top: 1px solid #d4a84b;
+    padding-top: 22px;
+  }
+  #timerLabel {
+    font-size: 12px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #9a6e3a;
+    margin-bottom: 10px;
+  }
+  #timer {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 600;
+    color: #5c3d1e;
+  }
+  .divider {
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, #d4a84b 30%, #d4a84b 70%, transparent);
+    align-self: stretch;
+    margin: 40px 0;
+  }
+  #right-panel {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+  }
+  #treeCanvas, #petalCanvas {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    display: block;
+  }
+  #petalCanvas { pointer-events: none; }
+  .corner-deco {
+    position: absolute;
+    top: 30px; right: 30px;
+    width: 60px; height: 60px;
+    border-top: 1.5px solid #d4a84b;
+    border-right: 1.5px solid #d4a84b;
+    opacity: 0.5;
+    pointer-events: none;
+  }
+  .corner-deco-bl {
+    position: absolute;
+    bottom: 30px; left: 30px;
+    width: 40px; height: 40px;
+    border-bottom: 1px solid #d4a84b;
+    border-left: 1px solid #d4a84b;
+    opacity: 0.4;
+    pointer-events: none;
+  }
 </style>
 </head>
 <body>
+
+<!-- INTRO -->
 <div id="intro" onclick="startMain()">
   <svg class="sunflower-icon" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
     <g transform="translate(60,56)">
-      <ellipse rx="8" ry="22" fill="#F5C518" opacity="0.9" transform="rotate(0) translate(0,-32)"/>
-      <ellipse rx="8" ry="22" fill="#E8B800" opacity="0.9" transform="rotate(30) translate(0,-32)"/>
-      <ellipse rx="8" ry="22" fill="#F5C518" opacity="0.9" transform="rotate(60) translate(0,-32)"/>
-      <ellipse rx="8" ry="22" fill="#E8B800" opacity="0.9" transform="rotate(90) translate(0,-32)"/>
+      <ellipse rx="8" ry="22" fill="#F5C518" opacity="0.9" transform="rotate(0)   translate(0,-32)"/>
+      <ellipse rx="8" ry="22" fill="#E8B800" opacity="0.9" transform="rotate(30)  translate(0,-32)"/>
+      <ellipse rx="8" ry="22" fill="#F5C518" opacity="0.9" transform="rotate(60)  translate(0,-32)"/>
+      <ellipse rx="8" ry="22" fill="#E8B800" opacity="0.9" transform="rotate(90)  translate(0,-32)"/>
       <ellipse rx="8" ry="22" fill="#F5C518" opacity="0.9" transform="rotate(120) translate(0,-32)"/>
       <ellipse rx="8" ry="22" fill="#E8B800" opacity="0.9" transform="rotate(150) translate(0,-32)"/>
       <ellipse rx="8" ry="22" fill="#F5C518" opacity="0.9" transform="rotate(180) translate(0,-32)"/>
@@ -170,20 +157,41 @@ body{
       <ellipse rx="8" ry="22" fill="#E8B800" opacity="0.9" transform="rotate(270) translate(0,-32)"/>
       <ellipse rx="8" ry="22" fill="#F5C518" opacity="0.9" transform="rotate(300) translate(0,-32)"/>
       <ellipse rx="8" ry="22" fill="#E8B800" opacity="0.9" transform="rotate(330) translate(0,-32)"/>
+      <ellipse rx="5" ry="15" fill="#FFD740" opacity="0.7" transform="rotate(15)  translate(0,-26)"/>
+      <ellipse rx="5" ry="15" fill="#FFD740" opacity="0.7" transform="rotate(45)  translate(0,-26)"/>
+      <ellipse rx="5" ry="15" fill="#FFD740" opacity="0.7" transform="rotate(75)  translate(0,-26)"/>
+      <ellipse rx="5" ry="15" fill="#FFD740" opacity="0.7" transform="rotate(105) translate(0,-26)"/>
+      <ellipse rx="5" ry="15" fill="#FFD740" opacity="0.7" transform="rotate(135) translate(0,-26)"/>
+      <ellipse rx="5" ry="15" fill="#FFD740" opacity="0.7" transform="rotate(165) translate(0,-26)"/>
+      <ellipse rx="5" ry="15" fill="#FFD740" opacity="0.7" transform="rotate(195) translate(0,-26)"/>
+      <ellipse rx="5" ry="15" fill="#FFD740" opacity="0.7" transform="rotate(225) translate(0,-26)"/>
+      <ellipse rx="5" ry="15" fill="#FFD740" opacity="0.7" transform="rotate(255) translate(0,-26)"/>
+      <ellipse rx="5" ry="15" fill="#FFD740" opacity="0.7" transform="rotate(285) translate(0,-26)"/>
+      <ellipse rx="5" ry="15" fill="#FFD740" opacity="0.7" transform="rotate(315) translate(0,-26)"/>
+      <ellipse rx="5" ry="15" fill="#FFD740" opacity="0.7" transform="rotate(345) translate(0,-26)"/>
       <circle r="20" fill="#5D2E0C"/>
       <circle r="17" fill="#6B3410"/>
+      <circle cx="0"  cy="-9"  r="2.5" fill="#4a2008" opacity="0.8"/>
+      <circle cx="8"  cy="-5"  r="2.5" fill="#4a2008" opacity="0.8"/>
+      <circle cx="8"  cy="5"   r="2.5" fill="#4a2008" opacity="0.8"/>
+      <circle cx="0"  cy="9"   r="2.5" fill="#4a2008" opacity="0.8"/>
+      <circle cx="-8" cy="5"   r="2.5" fill="#4a2008" opacity="0.8"/>
+      <circle cx="-8" cy="-5"  r="2.5" fill="#4a2008" opacity="0.8"/>
+      <circle cx="0"  cy="0"   r="3"   fill="#4a2008" opacity="0.9"/>
     </g>
     <line x1="60" y1="91" x2="60" y2="118" stroke="#5c7a2a" stroke-width="4" stroke-linecap="round"/>
+    <ellipse cx="52" cy="108" rx="9" ry="5" fill="#6a8f30" transform="rotate(-20,52,108)"/>
   </svg>
   <div class="intro-label">🌻 Цветы для тебя</div>
   <div class="click-hint">нажми чтобы открыть</div>
 </div>
 
+<!-- MAIN -->
 <div id="main">
   <div id="left-panel">
     <div id="textContainer"></div>
     <div id="timerBlock">
-      <div id="timerLabel">Встретимся</div>
+      <div id="timerLabel">Встретимся через...</div>
       <div id="timer">—</div>
     </div>
   </div>
@@ -197,7 +205,8 @@ body{
 </div>
 
 <script>
-const linesOfText=[
+// ── CONFIG ──────────────────────────────────────────
+const linesOfText = [
   "Доня, я очень верю в тебя",
   "и знаю, что у тебя всё",
   "получится.",
@@ -211,267 +220,264 @@ const linesOfText=[
   "Я рядом и всегда буду",
   "поддерживать тебя ❤️🫶🏻"
 ];
-const startDate=new Date("2026-05-24T15:00:00").getTime();
+const startDate = new Date("2026-05-24T15:00:00").getTime();
+// ────────────────────────────────────────────────────
 
-const intro=document.getElementById('intro'),
-      mainEl=document.getElementById('main'),
-      treeCanvas=document.getElementById('treeCanvas'),
-      tctx=treeCanvas.getContext('2d'),
-      petalCanvas=document.getElementById('petalCanvas'),
-      pctx=petalCanvas.getContext('2d'),
-      textCont=document.getElementById('textContainer'),
-      timerEl=document.getElementById('timer'),
-      rightPanel=document.getElementById('right-panel');
+const intro       = document.getElementById('intro');
+const mainEl      = document.getElementById('main');
+const treeCanvas  = document.getElementById('treeCanvas');
+const tctx        = treeCanvas.getContext('2d');
+const petalCanvas = document.getElementById('petalCanvas');
+const pctx        = petalCanvas.getContext('2d');
+const textCont    = document.getElementById('textContainer');
+const timerEl     = document.getElementById('timer');
+const rightPanel  = document.getElementById('right-panel');
 
-let W,H,particles=[],started=false,flowerData=[];
+let W, H;
+let particles = [];
+let treeReady = false;
 
-function resize(){
-  W=treeCanvas.width=petalCanvas.width=rightPanel.clientWidth;
-  H=treeCanvas.height=petalCanvas.height=rightPanel.clientHeight;
-  if(started) redrawStatic();
+function resize() {
+  W = treeCanvas.width  = petalCanvas.width  = rightPanel.offsetWidth;
+  H = treeCanvas.height = petalCanvas.height = rightPanel.offsetHeight;
 }
 
-function startMain(){
-  intro.style.opacity='0';
-  intro.style.pointerEvents='none';
-  setTimeout(()=>{
-    intro.style.display='none';
+function startMain() {
+  intro.style.opacity = '0';
+  intro.style.pointerEvents = 'none';
+  setTimeout(() => {
+    intro.style.display = 'none';
     mainEl.classList.add('visible');
-    started=true;
     resize();
-    window.addEventListener('resize',resize);
+    window.addEventListener('resize', resize);
     startTimer();
-    typeWriter();
-    animateBuild();
-    startFallingSunflowers();
-  },1200);
+    animateTreeGrow();
+  }, 1200);
 }
 
-function startTimer(){
-  function tick(){
-    const diff=Math.abs(Date.now()-startDate);
-    const d=Math.floor(diff/86400000),
-          h=Math.floor((diff%86400000)/3600000),
-          m=Math.floor((diff%3600000)/60000),
-          s=Math.floor((diff%60000)/1000);
-    timerEl.textContent=
-      `${d} дн.  ${String(h).padStart(2,'0')} ч  ${String(m).padStart(2,'0')} мин  ${String(s).padStart(2,'0')} с`;
+// TIMER
+function startTimer() {
+  function tick() {
+    const diff = Math.abs(Date.now() - startDate);
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000)  / 60000);
+    const s = Math.floor((diff % 60000)    / 1000);
+    timerEl.textContent = `${d} дн.  ${String(h).padStart(2,'0')} ч  ${String(m).padStart(2,'0')} мин  ${String(s).padStart(2,'0')} с`;
   }
   tick();
-  setInterval(tick,1000);
+  setInterval(tick, 1000);
 }
 
-function typeWriter(){
-  textCont.innerHTML='';
-  let li=0,ci=0;
-  function next(){
-    if(li>=linesOfText.length) return;
-    if(ci===0){
-      const p=document.createElement('div');
-      p.className='typewriter-line';
-      p.id='tl'+li;
+// TYPEWRITER
+function typeWriter() {
+  let li = 0, ci = 0;
+  function next() {
+    if (li >= linesOfText.length) return;
+    if (ci === 0) {
+      const p = document.createElement('div');
+      p.className = 'typewriter-line';
+      p.id = 'tl' + li;
       textCont.appendChild(p);
     }
-    const line=linesOfText[li];
-    if(ci<line.length){
-      document.getElementById('tl'+li).textContent+=line[ci];
-      ci++; setTimeout(next,48);
-    }else{
-      li++; ci=0; setTimeout(next,420);
+    const line = linesOfText[li];
+    if (ci < line.length) {
+      document.getElementById('tl' + li).textContent += line[ci];
+      ci++;
+      setTimeout(next, 48);
+    } else {
+      li++; ci = 0;
+      setTimeout(next, 420);
     }
   }
   next();
 }
 
-// УМЕНЬШЕННОЕ дерево + сердце
-function getScene(){
-  const cx=W*.5;
-  const trunkBottomY=H*.92;
-
-  const heartCX=W*.5;
-  const heartCY=H*.43;                     // чуть ниже чем раньше
-  const heartW=Math.min(W*.55,H*.60);      // было 0.70 / 0.78
-  const heartH=Math.min(H*.42,W*.46);      // было 0.54 / 0.58
-
-  const trunkTopY=heartCY+heartH*.34;
-  return{cx,trunkBottomY,heartCX,heartCY,heartW,heartH,trunkTopY};
+// PHASE 1: growing dot
+function animateTreeGrow() {
+  const cx = W * 0.5;
+  const groundY = H * 0.88;
+  let dotR = 0;
+  const maxDotR = 14;
+  function growDot() {
+    tctx.clearRect(0, 0, W, H);
+    dotR += 0.5;
+    tctx.beginPath();
+    tctx.arc(cx, groundY, dotR, 0, Math.PI * 2);
+    tctx.fillStyle = '#6B3A1F';
+    tctx.fill();
+    if (dotR < maxDotR) {
+      requestAnimationFrame(growDot);
+    } else {
+      setTimeout(() => buildTree(cx, groundY), 200);
+    }
+  }
+  growDot();
 }
 
-// Маска сердца: перевёрнута и подогнана под меньшую крону
-function insideHeart(x,y,cx,cy,w,h){
-  let nx=(x-cx)/(w/2);
-  let ny=(y-cy)/(h/2);
+// PHASE 2: build tree — branches clipped to panel
+function buildTree(cx, groundY) {
+  const branchList = [];
 
-  nx=-nx;
-  ny=-ny;
+  function collectBranch(x, y, len, angle, depth) {
+    if (depth === 0) return;
+    const ex = x + len * Math.cos(angle);
+    const ey = y + len * Math.sin(angle);
+    branchList.push({ x1: x, y1: y, x2: ex, y2: ey, depth });
+    const spread = 0.36 + Math.random() * 0.06;
+    const jitter = () => (Math.random() - 0.5) * 0.1;
+    collectBranch(ex, ey, len * 0.70, angle - spread + jitter(), depth - 1);
+    collectBranch(ex, ey, len * 0.70, angle + spread + jitter(), depth - 1);
+  }
 
-  // чуть сужаем и делаем верх мягче
-  nx*=0.98;
-  ny-=0.16;
-  ny*=0.94;
+  const trunkLen = H * 0.20;
+  collectBranch(cx, groundY, trunkLen, -Math.PI / 2, 9);
 
-  const v=Math.pow(nx*nx+ny*ny-1,3)-nx*nx*Math.pow(ny,3);
-  return v<=0;
+  const margin = 18;
+  let bi = 0;
+  const interval = setInterval(() => {
+    if (bi < branchList.length) {
+      const b = branchList[bi++];
+      const x2 = Math.max(margin, Math.min(W - margin, b.x2));
+      const y2 = Math.max(margin, Math.min(groundY, b.y2));
+      tctx.beginPath();
+      tctx.moveTo(b.x1, b.y1);
+      tctx.lineTo(x2, y2);
+      tctx.strokeStyle = `hsl(25,${38 + b.depth * 4}%,${20 + b.depth * 2}%)`;
+      tctx.lineWidth   = Math.max(0.7, b.depth * 0.85);
+      tctx.lineCap     = 'round';
+      tctx.stroke();
+    } else {
+      clearInterval(interval);
+      setTimeout(() => drawHeartFlowers(cx, groundY - H * 0.36), 300);
+    }
+  }, 5);
 }
 
-function createFlowers(){
-  const {heartCX,heartCY,heartW,heartH}=getScene();
-  const flowers=[];
-  const baseR=Math.max(4.2,Math.min(W,H)*0.0074);
-  const step=baseR*1.6;
+// PHASE 3: sunflowers fill heart completely — grid-based, no gaps
+function drawHeartFlowers(hcx, hcy) {
+  const flowersToDraw = [];
+  const scale = Math.min(W, H) * 0.028;
+  const flowerR = 5;
+  const step = flowerR * 1.85;
 
-  for(let y=heartCY-heartH*.55;y<=heartCY+heartH*.52;y+=step){
-    const shift=((Math.round((y-(heartCY-heartH*.55))/step))%2)*(step*.5);
-    for(let x=heartCX-heartW*.50;x<=heartCX+heartW*.50;x+=step){
-      const xx=x+shift;
-      if(insideHeart(xx,y,heartCX,heartCY,heartW,heartH)){
-        flowers.push({
-          x:xx+(Math.random()-.5)*step*.20,
-          y:y +(Math.random()-.5)*step*.20,
-          r:baseR*(.9+Math.random()*.22)
-        });
+  const xRange = 16 * scale * 1.35;
+  const yRange = 14 * scale * 1.35;
+
+  function insideHeart(px, py) {
+    const nx = (px - hcx) / scale;
+    const ny = (py - hcy) / scale;
+    const ix = nx / 16;
+    const iy = -ny / 13;
+    const val = Math.pow(ix*ix + iy*iy - 1, 3) - ix*ix * Math.pow(iy, 3);
+    return val <= 0.08;
+  }
+
+  for (let px = hcx - xRange; px <= hcx + xRange; px += step) {
+    for (let py = hcy - yRange; py <= hcy + yRange; py += step) {
+      if (px > 8 && px < W - 8 && py > 8 && py < H - 8) {
+        if (insideHeart(px, py)) {
+          flowersToDraw.push({
+            x: px + (Math.random() * 2 - 1),
+            y: py + (Math.random() * 2 - 1),
+            delay: Math.random() * 2600
+          });
+        }
       }
     }
   }
 
-  const extra=Math.floor(flowers.length*.40);
-  for(let i=0;i<extra;i++){
-    const f=flowers[Math.floor(Math.random()*flowers.length)];
-    const nx=f.x+(Math.random()-.5)*step*.65;
-    const ny=f.y+(Math.random()-.5)*step*.65;
-    if(insideHeart(nx,ny,heartCX,heartCY,heartW,heartH)){
-      flowers.push({
-        x:nx,y:ny,
-        r:baseR*(.72+Math.random()*.32)
-      });
-    }
-  }
-  return flowers;
+  let appeared = 0;
+  const trigger = Math.floor(flowersToDraw.length * 0.55);
+  flowersToDraw.forEach(f => {
+    setTimeout(() => {
+      drawSunflowerOnTree(f.x, f.y, flowerR + Math.random() * 1.2);
+      appeared++;
+      if (appeared === trigger && !treeReady) {
+        treeReady = true;
+        typeWriter();
+        startFallingSunflowers();
+      }
+    }, f.delay);
+  });
 }
 
-function drawSunflower(ctx,x,y,r){
-  const n=10;
-  for(let i=0;i<n;i++){
-    const a=i/n*Math.PI*2;
-    const px=x+Math.cos(a)*r*1.50;
-    const py=y+Math.sin(a)*r*1.50;
-    ctx.beginPath();
-    ctx.ellipse(px,py,r*.42,r*.86,a,0,Math.PI*2);
-    ctx.fillStyle=i%2===0?'#FFD21F':'#F2B200';
-    ctx.fill();
-  }
-  for(let i=0;i<n;i++){
-    const a=i/n*Math.PI*2+Math.PI/n;
-    const px=x+Math.cos(a)*r*1.02;
-    const py=y+Math.sin(a)*r*1.02;
-    ctx.beginPath();
-    ctx.ellipse(px,py,r*.26,r*.50,a,0,Math.PI*2);
-    ctx.fillStyle='#FFE15A';
-    ctx.fill();
-  }
-  ctx.beginPath();
-  ctx.arc(x,y,r*.90,0,Math.PI*2);
-  ctx.fillStyle='#3E1800';
-  ctx.fill();
-  ctx.beginPath();
-  ctx.arc(x,y,r*.58,0,Math.PI*2);
-  ctx.fillStyle='#5A2600';
-  ctx.fill();
-}
-
-function drawTreeBase(){
-  const {cx,trunkBottomY,heartCX,heartCY,heartW,heartH,trunkTopY}=getScene();
-  tctx.beginPath();
-  tctx.moveTo(cx,trunkBottomY);
-  tctx.lineTo(cx,trunkTopY);
-  tctx.strokeStyle='#8B4513';
-  tctx.lineWidth=Math.max(5,Math.min(W,H)*0.0065);
-  tctx.lineCap='round';
-  tctx.stroke();
-
-  tctx.beginPath();
-  tctx.arc(cx,trunkBottomY,Math.max(6,Math.min(W,H)*0.0095),0,Math.PI*2);
-  tctx.fillStyle='#6B3410';
-  tctx.fill();
-
-  function branch(x,y,angle,len,depth){
-    if(depth<=0||len<2) return;
-    const ex=x+Math.cos(angle)*len;
-    const ey=y+Math.sin(angle)*len;
+// Draw sunflower on the static tree canvas
+function drawSunflowerOnTree(x, y, r) {
+  const nP = 8;
+  for (let i = 0; i < nP; i++) {
+    const a  = (i / nP) * Math.PI * 2;
+    const px = x + Math.cos(a) * r * 1.55;
+    const py = y + Math.sin(a) * r * 1.55;
     tctx.beginPath();
-    tctx.moveTo(x,y);
-    tctx.lineTo(ex,ey);
-    tctx.strokeStyle=`hsl(25, ${26+depth*4}%, ${24+depth*2}%)`;
-    tctx.lineWidth=Math.max(.40,depth*.50);
-    tctx.lineCap='round';
-    tctx.stroke();
-    const spread=.28+Math.random()*.08;
-    const jitter=()=> (Math.random()-.5)*.10;
-    branch(ex,ey,angle-spread+jitter(),len*.72,depth-1);
-    branch(ex,ey,angle+spread+jitter(),len*.72,depth-1);
+    tctx.ellipse(px, py, r * 0.5, r * 0.88, a, 0, Math.PI * 2);
+    tctx.fillStyle = i % 2 === 0 ? '#FFD000' : '#F5B800';
+    tctx.fill();
   }
-
-  const by=heartCY-heartH*.02;
-  const len=Math.min(heartW,heartH)*.24;     // короче под маленькую крону
-  branch(heartCX,by,-Math.PI/2,     len,    7);
-  branch(heartCX,by,-Math.PI/2-0.55,len*.9, 7);
-  branch(heartCX,by,-Math.PI/2+0.55,len*.9, 7);
+  tctx.beginPath();
+  tctx.arc(x, y, r, 0, Math.PI * 2);
+  tctx.fillStyle = '#3E1C00';
+  tctx.fill();
+  tctx.beginPath();
+  tctx.arc(x, y, r * 0.62, 0, Math.PI * 2);
+  tctx.fillStyle = '#5A2800';
+  tctx.fill();
 }
 
-function redrawStatic(){
-  tctx.clearRect(0,0,W,H);
-  drawTreeBase();
-  flowerData=createFlowers();
-  for(const f of flowerData) drawSunflower(tctx,f.x,f.y,f.r);
-}
-
-function animateBuild(){
-  tctx.clearRect(0,0,W,H);
-  drawTreeBase();
-  flowerData=createFlowers();
-  let i=0;
-  function step(){
-    for(let j=0;j<5&&i<flowerData.length;j++,i++){
-      const f=flowerData[i];
-      drawSunflower(tctx,f.x,f.y,f.r);
-    }
-    if(i<flowerData.length) requestAnimationFrame(step);
+// Draw tiny falling sunflower on petal canvas
+function drawFallingSunflower(cx, cy, r, angle) {
+  pctx.save();
+  pctx.translate(cx, cy);
+  pctx.rotate(angle);
+  const nP = 8;
+  for (let i = 0; i < nP; i++) {
+    const a  = (i / nP) * Math.PI * 2;
+    const px = Math.cos(a) * r * 1.6;
+    const py = Math.sin(a) * r * 1.6;
+    pctx.beginPath();
+    pctx.ellipse(px, py, r * 0.48, r * 0.88, a, 0, Math.PI * 2);
+    pctx.fillStyle = i % 2 === 0 ? '#FFD000' : '#F5B800';
+    pctx.fill();
   }
-  step();
+  pctx.beginPath();
+  pctx.arc(0, 0, r, 0, Math.PI * 2);
+  pctx.fillStyle = '#3E1C00';
+  pctx.fill();
+  pctx.beginPath();
+  pctx.arc(0, 0, r * 0.62, 0, Math.PI * 2);
+  pctx.fillStyle = '#5A2800';
+  pctx.fill();
+  pctx.restore();
 }
 
-function startFallingSunflowers(){
-  setInterval(()=>{
-    if(particles.length<10){
+// FALLING TINY SUNFLOWERS
+function startFallingSunflowers() {
+  setInterval(() => {
+    if (particles.length < 18) {
       particles.push({
-        x:W*(.08+Math.random()*.84),
-        y:-12,
-        vx:(Math.random()-.5)*.5,
-        vy:.55+Math.random()*.7,
-        r:4+Math.random()*2.4,
-        angle:Math.random()*Math.PI*2,
-        spin:(Math.random()-.5)*.04
+        x:     W * (0.1 + Math.random() * 0.8),
+        y:     -12,
+        vx:    (Math.random() - 0.5) * 0.6,
+        vy:    0.6 + Math.random() * 0.9,
+        r:     4 + Math.random() * 3,
+        angle: Math.random() * Math.PI * 2,
+        spin:  (Math.random() - 0.5) * 0.04
       });
     }
-  },900);
+  }, 600);
 
-  function anim(){
-    pctx.clearRect(0,0,W,H);
-    for(let i=particles.length-1;i>=0;i--){
-      const p=particles[i];
-      p.x+=p.vx;
-      p.y+=p.vy;
-      p.angle+=p.spin;
-      pctx.save();
-      pctx.translate(p.x,p.y);
-      pctx.rotate(p.angle);
-      drawSunflower(pctx,0,0,p.r);
-      pctx.restore();
-      if(p.y>H+20) particles.splice(i,1);
-    }
-    requestAnimationFrame(anim);
+  function animate() {
+    pctx.clearRect(0, 0, W, H);
+    particles.forEach((p, i) => {
+      p.x     += p.vx;
+      p.y     += p.vy;
+      p.angle += p.spin;
+      drawFallingSunflower(p.x, p.y, p.r, p.angle);
+      if (p.y > H + 20) particles.splice(i, 1);
+    });
+    requestAnimationFrame(animate);
   }
-  anim();
+  animate();
 }
 
 resize();
