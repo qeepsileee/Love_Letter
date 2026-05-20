@@ -182,8 +182,8 @@
     <line x1="60" y1="91" x2="60" y2="118" stroke="#5c7a2a" stroke-width="4" stroke-linecap="round"/>
     <ellipse cx="52" cy="108" rx="9" ry="5" fill="#6a8f30" transform="rotate(-20,52,108)"/>
   </svg>
-  <div class="intro-label">🌻 Flores Para Ti</div>
-  <div class="click-hint">toca para abrir</div>
+  <div class="intro-label">🌻 Цветы для тебя</div>
+  <div class="click-hint">Открытка,нажми чтобы открыть</div>
 </div>
 
 <!-- MAIN -->
@@ -191,7 +191,7 @@
   <div id="left-panel">
     <div id="textContainer"></div>
     <div id="timerBlock">
-      <div id="timerLabel">Mi amor por ti comenzó hace...</div>
+      <div id="timerLabel">Встретимся через</div>
       <div id="timer">—</div>
     </div>
   </div>
@@ -219,7 +219,7 @@ const linesOfText = [
   "Я рядом и всегда буду",
   "поддерживать тебя ❤️🫶🏻"
 ];
-const startDate = new Date("2025-05-21T15:00:00").getTime();
+const startDate = new Date("2026-05-24T15:00:00").getTime();
 
 const intro      = document.getElementById('intro');
 const mainEl     = document.getElementById('main');
@@ -351,7 +351,7 @@ function buildTree(cx, groundY) {
 function drawHeartFlowers(hcx, hcy) {
   const flowersToDraw = [];
   // ↓ ИЗМЕНЕНО: уменьшено с 0.028 до 0.016
-  const scale = Math.min(W, H) * 0.012;
+  const scale = Math.min(W, H) * 0.013;
   const flowerR = 5;
   const step = flowerR * 1.85;
 
