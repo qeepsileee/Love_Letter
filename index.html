@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flores Para Ti</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #fcf4e4;
+            font-family: 'Playfair Display', serif;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Начальный экран */
+        #intro {
+            text-align: center;
+            cursor: pointer;
+            transition: opacity 1s ease;
+            z-index: 10;
+        }
+
+        #intro span {
+            font-size: 24px;
+            color: #5c4033;
+            border-bottom: 2px solid #5c4033;
+            padding-bottom: 5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #intro span:hover {
+            color: #8b5a2b;
+            border-color: #8b5a2b;
+        }
+
+        /* Главный экран */
+        #main {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 2s ease;
+        }
+
+        canvas {
+            display: block;
+            width: 100%;
+            height: 100%;
+        }
+
+        /* Текст слева */
+        #textContainer {
+            position: absolute;
+            top: 20%;
+            left: 10%;
+            width: 35%;
+            color: #333;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .typewriter-line {
+            min-height: 30px;
+            margin-bottom: 15px;
+        }
+
+        /* Таймер */
+        #timerContainer {
+            position: absolute;
+            bottom: 10%;
+            left: 10%;
+            color: #333;
+        }
+
+        #timerLabel {
+            font-size: 16px;
+            margin-bottom: 5px;
+        }
+
+        #timer {
+            font-size: 22px;
+            font-weight: bold;
+            color: #5c4033;
+            border-bottom: 1px solid #5c4033;
+            display: inline-block;
+            padding-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="intro" onclick="startAnimation()">
+        <span>🌻 Flores Para Tí</span>
+    </div>
+
+    <div id="main">
+        <canvas id="treeCanvas"></canvas>
+        <div id="textContainer"></div>
+        <div id="timerContainer">
+            <div id="timerLabel">Mi amor por ti comenzó hace...</div>
+            <div id="timer">0 días 00 horas 00 minutos 00 segundos</div>
+        </div>
+    </div>
+
+    <script>
+        // ==========================================
+        // ЗДЕСЬ ТЫ МОЖЕШЬ ЗАМЕНИТЬ ТЕКСТ И НАСТРОЙКИ
+        // ==========================================
+        
+        const linesOfText = [
+            "Flores Amarillas para el amor de mi vida:",
+            "",
+            "Si pudiera elegir un lugar seguro, sería a tu lado.",
+            "",
+            "Cuanto más tiempo estoy contigo más te amo.",
+            "",
+            "— I Love You"
+        ];
+
+        // Дата таймера: Год-Месяц-День T Часы:Минуты:Секунды
+        const targetDate = new Date("2026-05-21T15:00:00").getTime();
+
+        // ==========================================
+
+        const intro = document.getElementById('intro');
+        const main = document.getElementById('main');
+        const canvas = document.getElementById('treeCanvas');
+        const ctx = canvas.getContext('2d');
+        const textContainer = document.getElementById('textContainer');
+        const timerElement = document.getElementById('timer');
+
+        let width, height;
+        let animationDone = false;
+        let particles = [];
+
+        function resize() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', resize);
+        resize();
+
+        function startAnimation() {
+            intro.style.opacity = '0';
+            setTimeout(() => {
+                intro.style.display = 'none';
+                main.style.opacity = '1';
+                startTimer();
+                drawTree();
+            }, 1000);
+        }
+
+        // --- ЛОГИКА ТАЙМЕРА ---
+        function startTimer() {
+            setInterval(function() {
+                const now = new Date().getTime();
+                // Используем Math.abs, чтобы таймер работал корректно даже до наступления даты
+                const distance = Math.abs(now - targetDate);
+
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                timerElement.innerHTML = 
+                    `${days} días ` +
+                    `${hours.toString().padStart(2, '0')} horas ` +
+                    `${minutes.toString().padStart(2, '0')} minutos ` +
+                    `${seconds.toString().padStart(2, '0')} segundos`;
+            }, 1000);
+        }
+
+        // --- ЭФФЕКТ ПЕЧАТНОЙ МАШИНКИ ---
+        function typeWriter() {
+            let lineIndex = 0;
+            let charIndex = 0;
+
+            function typeNextChar() {
+                if (lineIndex < linesOfText.length) {
+                    if (charIndex === 0) {
+                        const p = document.createElement('div');
+                        p.className = 'typewriter-line';
+                        p.id = 'line' + lineIndex;
+                        textContainer.appendChild(p);
+                    }
+
+                    const currentLine = linesOfText[lineIndex];
+                    if (charIndex < currentLine.length) {
+                        document.getElementById('line' + lineIndex).innerHTML += currentLine.charAt(charIndex);
+                        charIndex++;
+                        setTimeout(typeNextChar, 50); // Скорость печати
+                    } else {
+                        lineIndex++;
+                        charIndex = 0;
+                        setTimeout(typeNextChar, 500); // Пауза между строками
+                    }
+                }
+            }
+            typeNextChar();
+        }
+
+        // --- АНИМАЦИЯ ДЕРЕВА И ЦВЕТОВ ---
+        function drawTree() {
+            let branches = [];
+            let flowers = [];
+            
+            // Начальная точка ствола (смещена вправо)
+            let startX = width * 0.7;
+            let startY = height - 50;
+
+            // Рисуем землю
+            ctx.beginPath();
+            ctx.moveTo(0, height - 50);
+            ctx.lineTo(width, height - 50);
+            ctx.strokeStyle = "#5c4033";
+            ctx.lineWidth = 2;
+            ctx.stroke();
+
+            function branch(x, y, len, angle, depth) {
+                if (depth === 0) {
+                    // Координаты для цветов (собираем в массив для отрисовки сердца)
+                    return;
+                }
+
+                let endX = x + len * Math.cos(angle);
+                let endY = y + len * Math.sin(angle);
+
+                branches.push({x1: x, y1: y, x2: endX, y2: endY, depth: depth});
+
+                // Рекурсивный вызов для веток
+                setTimeout(() => {
+                    branch(endX, endY, len * 0.75, angle - 0.4 + (Math.random()*0.2 - 0.1), depth - 1);
+                    branch(endX, endY, len * 0.75, angle + 0.4 + (Math.random()*0.2 - 0.1), depth - 1);
+                }, 100);
+            }
+
+            // Запускаем рост ствола
+            branch(startX, startY, 120, -Math.PI / 2, 9);
+
+            // Анимация прорисовки веток
+            let drawInterval = setInterval(() => {
+                if (branches.length > 0) {
+                    let b = branches.shift();
+                    ctx.beginPath();
+                    ctx.moveTo(b.x1, b.y1);
+                    ctx.lineTo(b.x2, b.y2);
+                    ctx.strokeStyle = "#654321";
+                    ctx.lineWidth = b.depth * 0.8;
+                    ctx.stroke();
+                } else if (!animationDone) {
+                    animationDone = true;
+                    clearInterval(drawInterval);
+                    drawHeartFlowers(startX, startY - 200);
+                    typeWriter(); // Запускаем текст после роста дерева
+                    animateParticles();
+                }
+            }, 10);
+        }
+
+        function drawHeartFlowers(centerX, centerY) {
+            // Формула сердца
+            for (let t = 0; t < Math.PI * 2; t += 0.05) {
+                for (let scale = 1; scale <= 15; scale += 1.5) {
+                    let x = 16 * Math.pow(Math.sin(t), 3);
+                    let y = -(13 * Math.cos(t) - 5 * Math.cos(2*t) - 2 * Math.cos(3*t) - Math.cos(4*t));
+                    
+                    // Добавляем немного случайности
+                    let finalX = centerX + x * scale + (Math.random() * 10 - 5);
+                    let finalY = centerY + y * scale + (Math.random() * 10 - 5);
+
+                    // Отрисовка подсолнуха (желтый круг с коричневым центром)
+                    setTimeout(() => {
+                        drawSunflower(finalX, finalY);
+                        
+                        // Добавляем падающие лепестки
+                        if (Math.random() > 0.8) {
+                            particles.push({
+                                x: finalX,
+                                y: finalY,
+                                speedY: Math.random() * 1 + 0.5,
+                                speedX: Math.random() * 1 - 1.5, // Ветер влево
+                                size: Math.random() * 3 + 2,
+                                angle: Math.random() * 360
+                            });
+                        }
+                    }, Math.random() * 2000); // Постепенное появление
+                }
+            }
+        }
+
+        function drawSunflower(x, y) {
+            // Лепестки
+            ctx.beginPath();
+            ctx.arc(x, y, 6, 0, Math.PI * 2);
+            ctx.fillStyle = "#FFD700"; // Золотой
+            ctx.fill();
+            // Центр
+            ctx.beginPath();
+            ctx.arc(x, y, 3, 0, Math.PI * 2);
+            ctx.fillStyle = "#8B4513"; // Коричневый
+            ctx.fill();
+        }
+
+        function animateParticles() {
+            // Очищаем область для падающих лепестков, но не стираем само дерево (используем прозрачный слой)
+            ctx.fillStyle = "rgba(252, 244, 228, 0.05)"; // Под цвет фона для следа
+            // Чтобы не закрашивать дерево, мы перерисовываем только лепестки (в идеале нужно 2 канваса, но для упрощения сделаем так)
+            
+            requestAnimationFrame(animateParticles);
+            
+            particles.forEach((p, index) => {
+                // Стираем старую позицию маленьким квадратиком цвета фона
+                ctx.fillStyle = "#fcf4e4";
+                ctx.fillRect(p.x - p.size, p.y - p.size, p.size * 2, p.size * 2);
+                
+                p.y += p.speedY;
+                p.x += p.speedX;
+                
+                // Рисуем падающий лепесток
+                ctx.beginPath();
+                ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
+                ctx.fillStyle = "#FFD700";
+                ctx.fill();
+
+                // Удаляем, если упал на землю
+                if (p.y > height - 50) {
+                    particles.splice(index, 1);
+                }
+            });
+        }
+    </script>
+</body>
+</html>
