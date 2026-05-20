@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="ru">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Flores Para Ti</title>
+<title>Цветы для тебя</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -183,7 +183,7 @@
     <ellipse cx="52" cy="108" rx="9" ry="5" fill="#6a8f30" transform="rotate(-20,52,108)"/>
   </svg>
   <div class="intro-label">🌻 Цветы для тебя</div>
-  <div class="click-hint">Открытка,нажми чтобы открыть</div>
+  <div class="click-hint">нажми чтобы открыть</div>
 </div>
 
 <!-- MAIN -->
@@ -191,7 +191,7 @@
   <div id="left-panel">
     <div id="textContainer"></div>
     <div id="timerBlock">
-      <div id="timerLabel">Встретимся через</div>
+      <div id="timerLabel">Встретимся через...</div>
       <div id="timer">—</div>
     </div>
   </div>
@@ -205,6 +205,7 @@
 </div>
 
 <script>
+// ── CONFIG ──────────────────────────────────────────
 const linesOfText = [
   "Доня, я очень верю в тебя",
   "и знаю, что у тебя всё",
@@ -220,16 +221,17 @@ const linesOfText = [
   "поддерживать тебя ❤️🫶🏻"
 ];
 const startDate = new Date("2026-05-24T15:00:00").getTime();
+// ────────────────────────────────────────────────────
 
-const intro      = document.getElementById('intro');
-const mainEl     = document.getElementById('main');
-const treeCanvas = document.getElementById('treeCanvas');
-const tctx       = treeCanvas.getContext('2d');
-const petalCanvas= document.getElementById('petalCanvas');
-const pctx       = petalCanvas.getContext('2d');
-const textCont   = document.getElementById('textContainer');
-const timerEl    = document.getElementById('timer');
-const rightPanel = document.getElementById('right-panel');
+const intro       = document.getElementById('intro');
+const mainEl      = document.getElementById('main');
+const treeCanvas  = document.getElementById('treeCanvas');
+const tctx        = treeCanvas.getContext('2d');
+const petalCanvas = document.getElementById('petalCanvas');
+const pctx        = petalCanvas.getContext('2d');
+const textCont    = document.getElementById('textContainer');
+const timerEl     = document.getElementById('timer');
+const rightPanel  = document.getElementById('right-panel');
 
 let W, H;
 let particles = [];
@@ -253,6 +255,7 @@ function startMain() {
   }, 1200);
 }
 
+// TIMER
 function startTimer() {
   function tick() {
     const diff = Math.abs(Date.now() - startDate);
@@ -260,12 +263,13 @@ function startTimer() {
     const h = Math.floor((diff % 86400000) / 3600000);
     const m = Math.floor((diff % 3600000)  / 60000);
     const s = Math.floor((diff % 60000)    / 1000);
-    timerEl.textContent = `${d} días  ${String(h).padStart(2,'0')} h  ${String(m).padStart(2,'0')} m  ${String(s).padStart(2,'0')} s`;
+    timerEl.textContent = `${d} дн.  ${String(h).padStart(2,'0')} ч  ${String(m).padStart(2,'0')} мин  ${String(s).padStart(2,'0')} с`;
   }
   tick();
   setInterval(tick, 1000);
 }
 
+// TYPEWRITER
 function typeWriter() {
   let li = 0, ci = 0;
   function next() {
@@ -289,6 +293,7 @@ function typeWriter() {
   next();
 }
 
+// PHASE 1: growing dot
 function animateTreeGrow() {
   const cx = W * 0.5;
   const groundY = H * 0.88;
@@ -310,6 +315,7 @@ function animateTreeGrow() {
   growDot();
 }
 
+// PHASE 2: build tree — branches clipped to panel
 function buildTree(cx, groundY) {
   const branchList = [];
 
@@ -348,10 +354,10 @@ function buildTree(cx, groundY) {
   }, 5);
 }
 
+// PHASE 3: sunflowers fill heart completely — grid-based, no gaps
 function drawHeartFlowers(hcx, hcy) {
   const flowersToDraw = [];
-  // ↓ ИЗМЕНЕНО: уменьшено с 0.028 до 0.016
-  const scale = Math.min(W, H) * 0.016;
+  const scale = Math.min(W, H) * 0.028;
   const flowerR = 5;
   const step = flowerR * 1.85;
 
@@ -396,6 +402,7 @@ function drawHeartFlowers(hcx, hcy) {
   });
 }
 
+// Draw sunflower on the static tree canvas
 function drawSunflowerOnTree(x, y, r) {
   const nP = 8;
   for (let i = 0; i < nP; i++) {
@@ -417,6 +424,7 @@ function drawSunflowerOnTree(x, y, r) {
   tctx.fill();
 }
 
+// Draw tiny falling sunflower on petal canvas
 function drawFallingSunflower(cx, cy, r, angle) {
   pctx.save();
   pctx.translate(cx, cy);
@@ -442,6 +450,7 @@ function drawFallingSunflower(cx, cy, r, angle) {
   pctx.restore();
 }
 
+// FALLING TINY SUNFLOWERS
 function startFallingSunflowers() {
   setInterval(() => {
     if (particles.length < 18) {
@@ -470,6 +479,8 @@ function startFallingSunflowers() {
   }
   animate();
 }
+
+resize();
 </script>
 </body>
 </html>
