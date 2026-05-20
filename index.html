@@ -354,12 +354,14 @@ function buildTree(cx, groundY) {
   }, 5);
 }
 
-// PHASE 3: sunflowers fill heart completely — grid-based, no gaps
+// PHASE 3: sunflowers fill heart completely — меньше цветов
 function drawHeartFlowers(hcx, hcy) {
   const flowersToDraw = [];
   const scale = Math.min(W, H) * 0.016;
   const flowerR = 5;
-  const step = flowerR * 1.85;
+
+  // было: const step = flowerR * 1.85;
+  const step = flowerR * 2.8;
 
   const xRange = 16 * scale * 1.35;
   const yRange = 14 * scale * 1.35;
