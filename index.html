@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Цветы для тебя</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
+//fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
@@ -169,17 +169,17 @@
       <ellipse rx="5" ry="15" fill="#FFD740" opacity="0.7" transform="rotate(285) translate(0,-26)"/>
       <ellipse rx="5" ry="15" fill="#FFD740" opacity="0.7" transform="rotate(315) translate(0,-26)"/>
       <ellipse rx="5" ry="15" fill="#FFD740" opacity="0.7" transform="rotate(345) translate(0,-26)"/>
-      <circle r="20" fill="#5D2E0C"/>
-      <circle r="17" fill="#6B3410"/>
-      <circle cx="0"  cy="-9"  r="2.5" fill="#4a2008" opacity="0.8"/>
-      <circle cx="8"  cy="-5"  r="2.5" fill="#4a2008" opacity="0.8"/>
-      <circle cx="8"  cy="5"   r="2.5" fill="#4a2008" opacity="0.8"/>
-      <circle cx="0"  cy="9"   r="2.5" fill="#4a2008" opacity="0.8"/>
-      <circle cx="-8" cy="5"   r="2.5" fill="#4a2008" opacity="0.8"/>
-      <circle cx="-8" cy="-5"  r="2.5" fill="#4a2008" opacity="0.8"/>
-      <circle cx="0"  cy="0"   r="3"   fill="#4a2008" opacity="0.9"/>
+      ircle r="20" fill="#5D2E0C"/>
+      ircle r="17" fill="#6B3410"/>
+      ircle cx="0"  cy="-9"  r="2.5" fill="#4a2008" opacity="0.8"/>
+      ircle cx="8"  cy="-5"  r="2.5" fill="#4a2008" opacity="0.8"/>
+      ircle cx="8"  cy="5"   r="2.5" fill="#4a2008" opacity="0.8"/>
+      ircle cx="0"  cy="9"   r="2.5" fill="#4a2008" opacity="0.8"/>
+      ircle cx="-8" cy="5"   r="2.5" fill="#4a2008" opacity="0.8"/>
+      ircle cx="-8" cy="-5"  r="2.5" fill="#4a2008" opacity="0.8"/>
+      ircle cx="0"  cy="0"   r="3"   fill="#4a2008" opacity="0.9"/>
     </g>
-    <line x1="60" y1="91" x2="60" y2="118" stroke="#5c7a2a" stroke-width="4" stroke-linecap="round"/>
+    e x1="60" y1="91" x2="60" y2="118" stroke="#5c7a2a" stroke-width="4" stroke-linecap="round"/>
     <ellipse cx="52" cy="108" rx="9" ry="5" fill="#6a8f30" transform="rotate(-20,52,108)"/>
   </svg>
   <div class="intro-label">🌻 Цветы для тебя</div>
@@ -197,8 +197,8 @@
   </div>
   <div class="divider"></div>
   <div id="right-panel">
-    <canvas id="treeCanvas"></canvas>
-    <canvas id="petalCanvas"></canvas>
+    anvas id="treeCanvas"></canvas>
+    anvas id="petalCanvas"></canvas>
     <div class="corner-deco"></div>
     <div class="corner-deco-bl"></div>
   </div>
@@ -354,29 +354,30 @@ function buildTree(cx, groundY) {
   }, 5);
 }
 
-// PHASE 3: sunflowers fill heart completely — grid-based, no gaps
+// PHASE 3: sunflowers fill heart — меньше цветов и аккуратное сердце
 function drawHeartFlowers(hcx, hcy) {
   const flowersToDraw = [];
   const scale = Math.min(W, H) * 0.016;
   const flowerR = 5;
-  const step = flowerR * 1.85;
 
-  const xRange = 16 * scale * 1.35;
-  const yRange = 14 * scale * 1.35;
+  // больше шаг — меньше цветов
+  const step = flowerR * 2.8;
 
-  // новая форма сердца — более острый низ и выразительный верх
+  const xRange = 16 * scale * 1.3;
+  const yRange = 14 * scale * 1.3;
+
   function insideHeart(px, py) {
     const nx = (px - hcx) / scale;
     const ny = (py - hcy) / scale;
 
-    // чуть сильнее вытягиваем по вертикали
     const ix = nx / 16;
-    const iy = -ny / 11.5; // было /13 — теперь выше и острее
+    // Чуть сильнее тянем вниз (острый низ) и делаем верх более «круглым»
+    const iy = -ny / 10.5;
 
     const val = Math.pow(ix * ix + iy * iy - 1, 3) - ix * ix * Math.pow(iy, 3);
 
-    // меньший допуск — форма четче
-    return val <= 0.02;
+    // Чуть строгий допуск — аккуратный контур
+    return val <= 0.0;
   }
 
   for (let px = hcx - xRange; px <= hcx + xRange; px += step) {
