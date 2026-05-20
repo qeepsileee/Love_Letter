@@ -354,24 +354,25 @@ function buildTree(cx, groundY) {
   }, 5);
 }
 
-// PHASE 3: sunflowers fill heart completely — очень мало цветов
+// PHASE 3: sunflowers fill heart completely — экстремально мало цветов
 function drawHeartFlowers(hcx, hcy) {
   const flowersToDraw = [];
   const scale = Math.min(W, H) * 0.016;
   const flowerR = 5;
 
-  // сильно увеличили шаг — мало цветов
-  const step = flowerR * 5.2;
+  // Суперразреженная сетка
+  const step = flowerR * 7.0;
 
-  const xRange = 16 * scale * 1.35;
-  const yRange = 14 * scale * 1.35;
+  // Чуть меньше диапазон, чтобы точки были ближе к форме
+  const xRange = 16 * scale * 1.15;
+  const yRange = 14 * scale * 1.15;
 
   function insideHeart(px, py) {
     const nx = (px - hcx) / scale;
     const ny = (py - hcy) / scale;
     const ix = nx / 16;
     const iy = -ny / 13;
-    const val = Math.pow(ix*ix + iy*iy - 1, 3) - ix*ix * Math.pow(iy, 3);
+    const val = Math.pow(ix * ix + iy * iy - 1, 3) - ix * ix * Math.pow(iy, 3);
     return val <= 0.08;
   }
 
