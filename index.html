@@ -326,8 +326,8 @@ function buildTree(cx, groundY) {
     branchList.push({ x1: x, y1: y, x2: ex, y2: ey, depth });
     const spread = 0.36 + Math.random() * 0.06;
     const jitter = () => (Math.random() - 0.5) * 0.1;
-    collectBranch(ex, ey, len * 0.70, angle - spread + jitter(), depth - 1);
-    collectBranch(ex, ey, len * 0.70, angle + spread + jitter(), depth - 1);
+    collectBranch(ex,ey,len * 0.70,angle - spread + jitter(),depth - 1);
+    collectBranch(ex,ey,len * 0.70,angle + spread + jitter(),depth - 1);
   }
 
   const trunkLen = H * 0.20;
@@ -354,14 +354,14 @@ function buildTree(cx, groundY) {
   }, 5);
 }
 
-// PHASE 3: sunflowers fill heart completely — меньше цветов
+// PHASE 3: sunflowers fill heart completely — очень мало цветов
 function drawHeartFlowers(hcx, hcy) {
   const flowersToDraw = [];
   const scale = Math.min(W, H) * 0.016;
   const flowerR = 5;
 
-  // шаг увеличен, чтобы цветов было меньше
-  const step = flowerR * 3.7;
+  // сильно увеличили шаг — мало цветов
+  const step = flowerR * 5.2;
 
   const xRange = 16 * scale * 1.35;
   const yRange = 14 * scale * 1.35;
