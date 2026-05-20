@@ -364,19 +364,13 @@ function drawHeartFlowers(hcx, hcy) {
   const xRange = 16 * scale * 1.35;
   const yRange = 14 * scale * 1.35;
 
-  // новая форма сердца — более острый низ и выразительный верх
   function insideHeart(px, py) {
     const nx = (px - hcx) / scale;
     const ny = (py - hcy) / scale;
-
-    // чуть сильнее вытягиваем по вертикали
     const ix = nx / 16;
-    const iy = -ny / 11.5; // было /13 — теперь выше и острее
-
-    const val = Math.pow(ix * ix + iy * iy - 1, 3) - ix * ix * Math.pow(iy, 3);
-
-    // меньший допуск — форма четче
-    return val <= 0.02;
+    const iy = -ny / 13;
+    const val = Math.pow(ix*ix + iy*iy - 1, 3) - ix*ix * Math.pow(iy, 3);
+    return val <= 0.08;
   }
 
   for (let px = hcx - xRange; px <= hcx + xRange; px += step) {
